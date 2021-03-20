@@ -56,12 +56,12 @@ export class SimpleCardDeck extends LitElement {
           block-size: 100%;
           overflow: hidden;
         }
-        main > div > .card {
+        .card {
           max-inline-size: 100%;
           max-block-size: 100%;
           aspect-ratio: 3 / 4;
           object-fit: contain;
-          border-radius: 10px;
+          border-radius: 5%;
         }
         @media (max-width: 600px) {
           main {
