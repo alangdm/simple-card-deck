@@ -158,6 +158,7 @@ export class SimpleCardDeck extends LitElement {
       this._nextCard = null;
       this.status = STATUS.PLAYING;
     }
+    this.shadowRoot.querySelector('button').focus();
   }
 
   _deckAction() {

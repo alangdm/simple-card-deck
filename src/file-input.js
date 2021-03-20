@@ -15,11 +15,9 @@ export class FileInput extends LitElement {
       css`
         :host {
           display: inline-flex;
-          border: 2px dashed var(--text-color);
-          padding: 2rem 1rem;
         }
-        :host([highlighted]),
-        :host(:focus-within) {
+        :host([highlighted]) label,
+        :host(:focus-within) label {
           border-color: var(--accent-color);
         }
         input {
@@ -38,8 +36,8 @@ export class FileInput extends LitElement {
           pointer-events: none;
         }
         label {
-          display: block;
-          cursor: pointer;
+          display: flex;
+          align-items: center;
         }
       `,
     ];
@@ -47,7 +45,7 @@ export class FileInput extends LitElement {
 
   render() {
     return html`
-      <label for="input"><slot></slot></label>
+      <label for="input" class="button"><slot></slot></label>
       <input
         id="input"
         type="file"

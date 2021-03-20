@@ -6,20 +6,24 @@ export const sharedStyles = css`
     margin: 0;
   }
 
+  summary {
+    border: 2px solid transparent;
+  }
   summary:focus {
     outline: none;
-    border: 1px solid var(--accent-color);
+    border-color: var(--accent-color);
   }
   summary:focus:not(:focus-visible) {
-    border: none;
+    border-color: transparent;
   }
 
   summary {
     margin-bottom: 0.25rem;
   }
 
-  button {
-    border: 1px solid var(--text-color);
+  button,
+  .button {
+    border: 2px solid var(--text-color);
     border-radius: 4px;
     padding: 0 0.5rem;
     width: auto;
@@ -44,10 +48,12 @@ export const sharedStyles = css`
   button:focus:not(:focus-visible) {
     border-color: var(--text-color);
   }
-  button:hover:enabled {
+  button:hover:enabled,
+  .button:hover {
     opacity: 0.9;
   }
-  button:active:enabled {
+  button:active:enabled,
+  .button:active {
     opacity: 0.8;
   }
 `;
