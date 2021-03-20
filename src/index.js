@@ -1,4 +1,5 @@
 import { LitElement, html, css } from 'lit';
+import { classMap } from 'lit/directives/class-map.js';
 
 import { sharedStyles } from './shared-styles.js';
 import './file-input.js';
@@ -9,6 +10,7 @@ const STATUS = {
   LOADING: 'loading',
   LOADED: 'loaded',
   PLAYING: 'playing',
+  ANIMATING: 'animating',
   FINISHED: 'finished',
   REPLAY: 'replay',
 };
@@ -49,19 +51,30 @@ export class SimpleCardDeck extends LitElement {
           overflow: hidden;
         }
         main > div {
-          display: flex;
-          flex-flow: column nowrap;
-          align-items: center;
+          display: grid;
+          justify-items: center;
+          grid-template-areas: 'card';
           max-inline-size: 100%;
           block-size: 100%;
           overflow: hidden;
         }
         .card {
+          grid-area: card;
           max-inline-size: 100%;
           max-block-size: 100%;
           aspect-ratio: 3 / 4;
           object-fit: contain;
           border-radius: 5%;
+        }
+        .next.card {
+          visibility: hidden;
+          transform: translateY(100%);
+          transition: transform 0.01s ease-in-out;
+        }
+        .next.card.animate {
+          visibility: visible;
+          transform: translateY(0);
+          transition-duration: 0.5s;
         }
         @media (max-width: 600px) {
           main {
@@ -94,6 +107,15 @@ export class SimpleCardDeck extends LitElement {
           ${this._currentCard
             ? html` <img class="card" src="${this._currentCard}" /> `
             : ''}
+          <img
+            class="${classMap({
+              card: true,
+              next: true,
+              animate: this._nextCard,
+            })}"
+            src="${this._nextCard}"
+            @transitionend=${this._transitionEnd}
+          />
         </div>
       </main>
     `;
@@ -123,7 +145,19 @@ export class SimpleCardDeck extends LitElement {
   }
 
   get _canPlay() {
-    return this.status !== STATUS.NEW_GAME && this.status !== STATUS.LOADING;
+    return (
+      this.status !== STATUS.NEW_GAME &&
+      this.status !== STATUS.LOADING &&
+      this.status !== STATUS.ANIMATING
+    );
+  }
+
+  _transitionEnd() {
+    if (this.status === STATUS.ANIMATING) {
+      this._currentCard = this._nextCard;
+      this._nextCard = null;
+      this.status = STATUS.PLAYING;
+    }
   }
 
   _deckAction() {
@@ -131,8 +165,8 @@ export class SimpleCardDeck extends LitElement {
       this._shuffle();
       this.status = STATUS.REPLAY;
     } else if (this.cardQueue.length > 0) {
-      this.status = STATUS.PLAYING;
-      this._currentCard = this.cardQueue.shift();
+      this.status = STATUS.ANIMATING;
+      this._nextCard = this.cardQueue.shift();
       if (this.cardQueue.length === 0) {
         this.status = STATUS.FINISHED;
       }
@@ -141,6 +175,7 @@ export class SimpleCardDeck extends LitElement {
 
   _shuffle() {
     this._currentCard = null;
+    this._nextCard = null;
     this.cardQueue = this.fileUrls.slice().sort(() => 0.5 - Math.random());
   }
 

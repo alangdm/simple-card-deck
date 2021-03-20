@@ -3,7 +3,7 @@ const TEXTS = {
   loading: 'Loading...',
   afterLoad: 'Loaded!',
   secondLoad: 'Load a different deck?',
-  inputLabel: 'Select the images for the cards',
+  inputLabel: 'Drag or select the images for the cards',
   nextCard: 'Next Card',
   shuffle: 'Shuffle Deck',
 };

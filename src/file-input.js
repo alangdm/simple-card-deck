@@ -98,19 +98,21 @@ export class FileInput extends LitElement {
   }
 
   firstUpdated() {
-    this.addEventListener('dragenter', this._highlight, { capture: false });
-    this.addEventListener('dragover', this._highlight, { capture: false });
-    this.addEventListener('dragleave', this._unhighlight, { capture: false });
-    this.addEventListener('drop', this._unhighlight, { capture: false });
-    this.addEventListener('drop', this._drop);
+    document.addEventListener('dragenter', this._highlight, { capture: false });
+    document.addEventListener('dragover', this._highlight, { capture: false });
+    document.addEventListener('dragleave', this._unhighlight, {
+      capture: false,
+    });
+    document.addEventListener('drop', this._unhighlight, { capture: false });
+    document.addEventListener('drop', this._drop);
   }
 
   disconnectedCallback() {
-    this.removeEventListener('dragenter', this._highlight);
-    this.removeEventListener('dragover', this._highlight);
-    this.removeEventListener('dragleave', this._unhighlight);
-    this.removeEventListener('drop', this._unhighlight);
-    this.removeEventListener('drop', this._drop);
+    document.removeEventListener('dragenter', this._highlight);
+    document.removeEventListener('dragover', this._highlight);
+    document.removeEventListener('dragleave', this._unhighlight);
+    document.removeEventListener('drop', this._unhighlight);
+    document.removeEventListener('drop', this._drop);
   }
 }
 
