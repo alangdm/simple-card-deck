@@ -7,3 +7,5 @@ Using this site you can load the image files for your favorite card game deck an
 All images are load locally, no server is involved. So, you don't have to worry about any copyright infringement.
 
 This is great for things such as drinking games in video calls. 🍻
+
+[Go here to try it out!](https://alangdm.github.io/simple-card-deck/)
