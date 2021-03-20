@@ -3,7 +3,7 @@ import { classMap } from 'lit/directives/class-map.js';
 
 import { sharedStyles } from './shared-styles.js';
 import './file-input.js';
-import { t } from './texts.js';
+import { t, LANGUAGES } from './texts.js';
 
 const STATUS = {
   NEW_GAME: 'newGame',
@@ -125,6 +125,11 @@ export class SimpleCardDeck extends LitElement {
     super();
     this.fileUrls = [];
     this.status = STATUS.NEW_GAME;
+
+    const lang = navigator.language.substring(0, 2);
+    if (LANGUAGES.includes(lang)) {
+      document.documentElement.setAttribute('lang', lang);
+    }
   }
 
   get _headerText() {
