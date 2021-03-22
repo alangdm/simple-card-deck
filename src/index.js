@@ -81,6 +81,11 @@ export class SimpleCardDeck extends LitElement {
             inline-size: 100%;
           }
         }
+        @media (prefers-reduced-motion: reduce) {
+          * {
+            transition-duration: 0.001s !important;
+          }
+        }
       `,
     ];
   }
