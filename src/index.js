@@ -60,9 +60,8 @@ export class SimpleCardDeck extends LitElement {
         }
         .card {
           grid-area: card;
-          max-inline-size: 100%;
+          inline-size: 100%;
           max-block-size: 100%;
-          aspect-ratio: 3 / 4;
           object-fit: contain;
           border-radius: 5%;
         }
@@ -166,7 +165,11 @@ export class SimpleCardDeck extends LitElement {
     if (this.status === STATUS.ANIMATING) {
       this._currentCard = this._nextCard;
       this._nextCard = null;
-      this.status = STATUS.PLAYING;
+      if (this.cardQueue.length === 0) {
+        this.status = STATUS.FINISHED;
+      } else {
+        this.status = STATUS.PLAYING;
+      }
     }
     this.shadowRoot.querySelector('button').focus();
   }
@@ -178,9 +181,6 @@ export class SimpleCardDeck extends LitElement {
     } else if (this.cardQueue.length > 0) {
       this.status = STATUS.ANIMATING;
       this._nextCard = this.cardQueue.shift();
-      if (this.cardQueue.length === 0) {
-        this.status = STATUS.FINISHED;
-      }
     }
   }
 
