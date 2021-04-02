@@ -37,7 +37,7 @@ export class SimpleCardDeck extends LitElement {
         :host {
           block-size: 100%;
           display: grid;
-          grid-template-rows: auto 1fr;
+          grid-template-rows: auto 1fr auto;
           place-items: center;
           padding: 1rem;
           grid-gap: 1rem;
@@ -122,6 +122,9 @@ export class SimpleCardDeck extends LitElement {
           />
         </div>
       </main>
+      <footer>
+        <a href="https://github.com/alangdm/simple-card-deck">Github</a>
+      </footer>
     `;
   }
 

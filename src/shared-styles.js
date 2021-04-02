@@ -6,6 +6,11 @@ export const sharedStyles = css`
     margin: 0;
   }
 
+  a {
+    color: var(--text-color);
+    text-decoration: none;
+  }
+
   summary {
     border: 2px solid transparent;
   }
